@@ -6,13 +6,17 @@ import {
   FlatList,
 } from "react-native";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AppContext from "@/contexts/AppContext";
 import { TextInput } from "react-native-paper";
 import CustomButton from "@/components/CustomButton";
 import BackButton from "@/components/BackButton";
 import AutocompleteDropdown from "@/components/AutocompleteDropdown";
 
 const FindVehicle = () => {
+  const useApp = useContext(AppContext);
+  // const { vehicles, setVehicles } = useApp;
+
   const [makeInput, setMakeInput] = useState("");
   const [modelInput, setModelInput] = useState("");
   const [yearInput, setYearInput] = useState("");
@@ -29,18 +33,7 @@ const FindVehicle = () => {
     []
   );
 
-  const makeOptions = [
-    "Honda",
-    "Suxx",
-    "Suxxx",
-    "Suxxxxx",
-    "Suxxxxxxx",
-    "Suxxxxxxxx",
-    "Subaru",
-    "Scion",
-    "Saab",
-    "Suzuki",
-  ];
+  const makeOptions = ["Honda", "Suxx", "Subaru", "Scion", "Saab", "Suzuki"];
   const modelOptions = ["Accord", "Corolla", "BRZ"];
   const yearOptions = ["2020", "2021", "2022", "2023", "2024"];
   const trimOptions = ["A", "B", "C", "D", "E"];

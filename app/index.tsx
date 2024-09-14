@@ -6,11 +6,26 @@ import { StatusBar } from "expo-status-bar"; // time, battery, wifi, etc.
 import CarHomeTileList from "@/components/CarHomeTileList";
 import { CarModel } from "@/constants/models/CarModel";
 import * as SQLite from "expo-sqlite";
+import { AppProvider } from "@/contexts/AppContext";
+import { InitDB, AddVehicle } from "@/database/sqlite";
 
 const App = () => {
   const router = useRouter(); // use this to navigate between pages
-  const [vehicles, setVehicles] = useState<CarModel[]>([]);
+  // const [vehicles, setVehicles] = useState<CarModel[]>([]);
   const database = SQLite.openDatabaseSync("MyGarage.db");
+
+  // TODO:
+  /*
+   * call DB init function from here; cannot currently do this because cant pass setVehicles callback function
+   * because AppContext (which provides setVehicles) is available for children of App, not App itself
+   *
+   * remove all the DB stuff from this file
+   *
+   */
+
+  useEffect(() => {
+    InitDB();
+  }, []);
 
   useEffect(() => {
     try {
@@ -50,42 +65,44 @@ const App = () => {
   };
 
   return (
-    <View className="flex-1">
-      <SafeAreaView className="mx-8">
-        <View className="pt-10 pb-5">
-          <Text className="text-5xl font-bold">Garage</Text>
-        </View>
-        <CarHomeTileList cars={vehicles} />
-        <View className="my-5">
-          <CustomButton
-            text="+ Add new vehicle"
-            onPress={() =>
-              router.navigate({
-                pathname: "/find-vehicle",
-                params: { addVehicle: addVehicle },
-              })
-            }
-          />
-          <View>
-            <CustomButton
-              text="+ Add Honda"
-              onPress={() => {
-                console.log("clicked");
-                addVehicle({
-                  id: 0,
-                  make: "Honda",
-                  model: "Accord Coupe",
-                  year: 2017,
-                  trim: "EX-L",
-                  engine: "2.3 L4",
-                });
-              }}
-            />
+    <AppProvider>
+      <View className="flex-1">
+        <SafeAreaView className="mx-8">
+          <View className="pt-10 pb-5">
+            <Text className="text-5xl font-bold">Garage</Text>
           </View>
-        </View>
-        <StatusBar style="dark" />
-      </SafeAreaView>
-    </View>
+          <CarHomeTileList cars={vehicles} />
+          <View className="my-5">
+            <CustomButton
+              text="+ Add new vehicle"
+              onPress={() =>
+                router.navigate({
+                  pathname: "/find-vehicle",
+                  params: { addVehicle: addVehicle },
+                })
+              }
+            />
+            <View>
+              <CustomButton
+                text="+ Add Honda"
+                onPress={() => {
+                  console.log("clicked");
+                  addVehicle({
+                    id: 0,
+                    make: "Honda",
+                    model: "Accord Coupe",
+                    year: 2017,
+                    trim: "EX-L",
+                    engine: "2.3 L4",
+                  });
+                }}
+              />
+            </View>
+          </View>
+          <StatusBar style="dark" />
+        </SafeAreaView>
+      </View>
+    </AppProvider>
   );
 };
 export default App;
