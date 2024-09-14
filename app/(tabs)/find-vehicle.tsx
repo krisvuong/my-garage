@@ -94,14 +94,13 @@ const FindVehicle = () => {
         <AutocompleteDropdown options={engineOptions} label="Engine" />
       </View>
       <View className="my-5">
-        <Pressable
+        <CustomButton
+          text="Add to garage"
           onPress={() => {
             // TODO: save car details to garage
             router.navigate("/");
           }}
-        >
-          <CustomButton text="Add to garage" />
-        </Pressable>
+        />
       </View>
     </View>
   );

@@ -12,16 +12,17 @@ const App = () => {
   const router = useRouter(); // use this to navigate between pages
 
   return (
-    <View className="flex-1 px-8 py-10">
-      <SafeAreaView>
+    <View className="flex-1">
+      <SafeAreaView className="mx-8">
         <View className="pt-10 pb-5">
           <Text className="text-5xl font-bold">Garage</Text>
         </View>
         <CarHomeTileList />
         <View className="my-5">
-          <Pressable onPress={() => router.navigate("/find-vehicle")}>
-            <CustomButton text="+ Add new vehicle" />
-          </Pressable>
+          <CustomButton
+            text="+ Add new vehicle"
+            onPress={() => router.navigate("/find-vehicle")}
+          />
         </View>
         <StatusBar style="dark" />
       </SafeAreaView>
