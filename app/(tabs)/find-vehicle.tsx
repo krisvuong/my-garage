@@ -13,18 +13,21 @@ import BackButton from "@/components/BackButton";
 import AutocompleteDropdown from "@/components/AutocompleteDropdown";
 
 const FindVehicle = () => {
-  const emptyArr: string[] = [];
   const [makeInput, setMakeInput] = useState("");
   const [modelInput, setModelInput] = useState("");
   const [yearInput, setYearInput] = useState("");
   const [engineInput, setEngineInput] = useState("");
   const [trimInput, setTrimInput] = useState("");
 
-  const [filteredMakeOptions, setFilteredMakeOptions] = useState(emptyArr);
-  const [filteredModelOptions, setFilteredModelOptions] = useState(emptyArr);
-  const [filteredYearOptions, setFilteredYearOptions] = useState(emptyArr);
-  const [filteredTrimOptions, setFilteredTrimOptions] = useState(emptyArr);
-  const [filteredEngineOptions, setFilteredEngineOptions] = useState(emptyArr);
+  const [filteredMakeOptions, setFilteredMakeOptions] = useState<string[]>([]);
+  const [filteredModelOptions, setFilteredModelOptions] = useState<string[]>(
+    []
+  );
+  const [filteredYearOptions, setFilteredYearOptions] = useState<string[]>([]);
+  const [filteredTrimOptions, setFilteredTrimOptions] = useState<string[]>([]);
+  const [filteredEngineOptions, setFilteredEngineOptions] = useState<string[]>(
+    []
+  );
 
   const makeOptions = [
     "Honda",
@@ -74,7 +77,7 @@ const FindVehicle = () => {
       );
       setFilteredOptions(filtered);
     } else {
-      setFilteredOptions(emptyArr);
+      setFilteredOptions([]);
     }
   };
 

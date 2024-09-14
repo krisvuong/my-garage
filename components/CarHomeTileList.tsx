@@ -1,14 +1,14 @@
 import { useRouter } from "expo-router";
 import { View, Text, FlatList, Pressable } from "react-native";
 import CarHomeTile from "./CarHomeTile";
-import CARDATA from "@/constants/CarData";
+import { CarModel } from "@/constants/models/CarModel";
 
-const CarHomeTileList = () => {
+const CarHomeTileList = ({ cars }: { cars: CarModel[] }) => {
   const router = useRouter();
   return (
     <View>
       <FlatList
-        data={CARDATA}
+        data={cars}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
